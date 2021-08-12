@@ -7,9 +7,3 @@ I wanted to code out this design and make it into a functional login system.
 I have used these frameworks:
  - express (backend)
  - mongoose (mongodb database)
-
-
-
-
-
-
