@@ -9,10 +9,19 @@ button {
     font-family: 'Poppins', sans-serif;
 }
 
-.nav {
-    background: black;
+header {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+body {
+    background: black;
+}
+
+.nav {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     color: white;
     height: 10vh;
@@ -54,8 +63,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90vh;
-    background: black;
+    height: 80vh;
 }
 
 .info {
@@ -144,3 +152,23 @@ main {
     width: 1.2rem;
     margin-right: 1rem;
 } 
+
+.forgottenpassword {
+    color: rgb(197, 197, 197);
+}
+
+footer{
+    color: rgb(197, 197, 197);
+    display: flex;
+    text-decoration: none;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    width: 70%;
+    margin: auto;
+}
+
+footer a {
+    text-decoration: none;
+    color: rgb(197, 197, 197);
+}
