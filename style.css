@@ -21,6 +21,7 @@ button {
 .nav__menu {
     display: flex;
     list-style: none;
+    margin-left: 10rem;
 }
 
 .nav__menu__item {
@@ -39,7 +40,8 @@ button {
 .nav__user__btn {
     color: white;
     font-weight: 600;
-    padding: .6rem 2.5rem;
+    font-size: 1rem;
+    padding: .5rem 2.5rem;
     margin-left: 1.5rem;
     border-radius: .4rem;
     border: none;
@@ -85,7 +87,8 @@ main {
 
 .login__form__email,
 .login__form__password,
-.login__form__btn {
+.login__form__btn,
+.login__oauth__btn {
     color: white;
     margin-block: 1rem;
     padding: .6rem 2rem;
@@ -120,3 +123,24 @@ main {
     text-align: center;
     padding-inline: 4rem;
 }
+
+.login__oauth {
+    display: flex;
+    flex-direction: column;
+}
+
+.login__oauth__btn {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-inline: 2rem 6rem;
+    cursor: pointer;
+    background: linear-gradient(black, black) padding-box,
+                linear-gradient(45deg, #f530aa 0%, #f53030 75%, #fee140 100%);
+    border: 1px solid transparent;
+}
+
+.login__oauth__btn-icon {
+    width: 1.2rem;
+    margin-right: 1rem;
+} 
