@@ -48,6 +48,7 @@ body {
 
 .nav__user__btn {
     color: white;
+    text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
     padding: .5rem 2.5rem;
@@ -171,4 +172,8 @@ footer{
 footer a {
     text-decoration: none;
     color: rgb(197, 197, 197);
+}
+
+.welcome__heading {
+    color: white;
 }

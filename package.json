@@ -1,0 +1,27 @@
+{
+  "name": "dark-account-login",
+  "version": "1.0.0",
+  "description": "(languages used HTML, CSS and JavaScript)",
+  "main": "login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukegammon/dark-theme-login.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukegammon/dark-theme-login/issues"
+  },
+  "homepage": "https://github.com/lukegammon/dark-theme-login#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "helmet": "^4.6.0",
+    "mongoose": "^5.13.7"
+  }
+}

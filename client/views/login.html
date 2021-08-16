@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <h1 class="nav__logo">Halo.</h1>
+            <ul class="nav__menu">
+                <li class="nav__menu__item">About</li>
+                <li class="nav__menu__item">Releases</li>
+                <li class="nav__menu__item">Contact Us</li>
+            </ul>
+            <div class="nav__user">
+                <img class="nav__user__search" src="../icons/icon-search.svg" alt="search">
+                <a class="nav__user__btn" href="/signup">Sign up</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="info">
+            <h2 class="info__heading">Login to Your Account</h2>
+            <p class="info__subtext">View a wide range of stats and information about old, new and upcoming Halo titles.</p>   
+        </section>
+        <section class="login">
+            <form class="login__form" name="loginForm" action="#">
+                <input class="login__form__email" type="text" id="email" name="email" placeholder="Email Address" required>
+                <input class="login__form__password" type="password" id="password" name="password" placeholder="Password" required>
+                <button class="login__form__btn">Login to your account<img class="login__form__btn-icon" src="../icons/icon-arrow.svg"></button>
+            </form>
+            <span class="login__seperator">/</span>
+            <div class="login__oauth">
+                <button class="login__oauth__btn"><img class="login__oauth__btn-icon" src="../icons/icon-google.svg">Sign in with Google</button>
+                <button class="login__oauth__btn"><img class="login__oauth__btn-icon" src="../icons/icon-facebook.svg">Sign in with Facebook</button>
+                <button class="login__oauth__btn"><img class="login__oauth__btn-icon" src="../icons/icon-apple.svg">Sign in with Apple Account</button>
+            </div>
+        </section>
+        <a class="forgottenpassword" href="#">Forgotten Password?</a>>
+    </main>
+    <footer>
+        <a href="#">Privacy Policy</a>
+        <p>Copyright@Halo 2021</p>
+    </footer>
+    <script src="../validation.js"></script>
+</body>
+</html>
