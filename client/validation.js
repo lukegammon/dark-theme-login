@@ -8,7 +8,6 @@ loginPasswordOutline.addEventListener("click", () => loginPasswordOutline.style.
 
 // Client Side Form Validation for User Login 
 loginButton.addEventListener("click", (event) => {
-    event.preventDefault();
     validateLogin();
 })
 
@@ -19,7 +18,7 @@ function validateLogin() {
     const enteredEmail = loginForm["email"].value;
     const enteredPassword = loginForm["password"].value;
     if(enteredEmail === "" ||
-       enteredEmail.length < 7 ||
+        enteredEmail.length < 6 ||
        !enteredEmail.includes("@") ||
        !enteredEmail.includes(".")
        ) {
@@ -31,17 +30,4 @@ function validateLogin() {
            loginPasswordBox.style.outline = "2px solid red";
            return;
        }
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json',
-        }
     }
-    fetch("/dashboard")
-        .then(!data.ok) {
-            throw Error(data.status);
-        }
-        return data.json();
-
-}

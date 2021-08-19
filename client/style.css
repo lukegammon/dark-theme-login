@@ -18,6 +18,10 @@ body {
     background: black;
 }
 
+.error-display {
+    color: red;
+}
+
 .nav {
     width: 70%;
     display: flex;
