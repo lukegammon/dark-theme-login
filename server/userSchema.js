@@ -13,7 +13,12 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    passwordResetToken: String
 });
 
 const User = mongoose.model('User', userSchema);

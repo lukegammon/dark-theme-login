@@ -20,6 +20,7 @@ body {
 
 .error-display {
     color: red;
+    font-weight: bold;
 }
 
 .nav {

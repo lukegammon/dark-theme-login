@@ -17,6 +17,8 @@
 	-   **joi** validiation lets you describe your data using a simple, intuitive, and readable language.
 -   [mongoose](https://www.npmjs.com/package/mongoose)
 	-   Mongoose is a [MongoDB](https://www.mongodb.org/) object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+-   [handlebars-express](https://www.npmjs.com/package/express-handlebars)
+    -   Templating engine package for express. Handlebars is a simple templating language. It uses a template and an input object to generate HTML or other text formats. Handlebars templates look like regular text with embedded Handlebars expressions.
 
 ## Authentication
 
