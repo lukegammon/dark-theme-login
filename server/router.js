@@ -43,19 +43,6 @@ const userExists = async (email) => {
     return found;
 }
 
-const userAlreadyVerified = async (email) => {
-    let verified = false;
-    await User.findOne({email: email}, (err, docs) => {
-        if(err){
-            console.error(err)
-            return;
-        }
-        if(docs.isVerified = true);
-        verified = true;
-    })
-    return verified;
-}
-
 const confirmEmailVerification = async (email, token) => {
     let confirmed = false;
     await User.findOne({ email: email }, (err, docs) => {
@@ -105,17 +92,38 @@ const changeVerificationToken = async (email, token) => {
     await User.findOneAndUpdate({email: email}, {passwordResetToken: token});
 }
 
+const loginUser = async (email, password) => {
+    let allowLogin = false;
+    let encryptedPassword;
+    await User.findOne({email: email}, async (err, docs) => {
+        encryptedPassword = await docs.password;
+        bcrypt.compare(password, encryptedPassword, (err, result) => {
+            if(!result) {
+                console.log("not allowed");
+            } else {
+                console.log("allowed");
+            }
+        })
+    })
+}
+    
+
 router.get("/", (req, res) => {
     res.render("login.handlebars");
 });
 
 router.post("/auth/login", async (req, res) => {
     const formValidated = await loginValidation(req.body.email, req.body.password);
+    let passwordValidated = await loginUser(req.body.email, req.body.password);
+    console.log(passwordValidated);
     if(formValidated === true) {
-        // check database for correct email and password
-        res.render("dashboard");
+        if(passwordValidated === true){
+            res.render("dashboard");
+        } else {
+            res.render("login", { error: "username or password incorrect"});
+        }
     } else {
-        res.render("login", {error: formValidated});
+        res.render("login", { error: formValidated });
     }
 })
 
@@ -128,7 +136,7 @@ router.post("/auth/signup", async (req, res) => {
             res.render("login.handlebars", { error: "Signup failed: User already exists, please login" } )
         } else {
             addUser(email, req.body.password);
-            res.render("checkemail");
+            res.render("check");
         }
         
     } else {
@@ -143,10 +151,6 @@ router.get("/signup", (req,res) => {
 router.get("/signup/confirmed/", async (req, res) => {
     const email = req.query.email;
     const verified = await confirmEmailVerification(email, req.query.token);
-    if(userAlreadyVerified(email)){
-        res.redirect("/");
-        return;
-    }
     if(verified === true) {
         res.redirect("/signup/validated");
     } else {
@@ -156,7 +160,7 @@ router.get("/signup/confirmed/", async (req, res) => {
 
 router.get("/signup/validated", (req, res) => {
     // dont allow route to be accessible outside of signup
-    res.render("confirmation");
+    res.render("success");
 });
 
 router.get("/signup/resend", async (req, res) => {
@@ -164,15 +168,15 @@ router.get("/signup/resend", async (req, res) => {
     const passwordResetToken = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
     await changeVerificationToken(email, passwordResetToken);
     sendVerificationEmail(email, passwordResetToken);
-    res.redirect("/signup/checkemail");
+    res.redirect("/signup/check");
 });
 
 router.get("/signup/failure/", (req, res) => {
     res.render("failure", {email: req.query.email});
 });
 
-router.get("/signup/checkemail", (req, res) => {
-    res.render("checkemail");
+router.get("/signup/check", (req, res) => {
+    res.render("check");
 })
 
 
