@@ -12,7 +12,7 @@ const saltRounds = 10;
 
 // add user to db
 const addUser = (email, password) => {
-    const passwordResetToken = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000
+    const passwordResetToken = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
     bcrypt.hash(password, saltRounds, (err, hash) => {
         if(err) {
             console.error(err)
@@ -43,10 +43,21 @@ const userExists = async (email) => {
     return found;
 }
 
+const userAlreadyVerified = async (email) => {
+    let verified = false;
+    await User.findOne({email: email}, (err, docs) => {
+        if(err){
+            console.error(err)
+            return;
+        }
+        if(docs.isVerified = true);
+        verified = true;
+    })
+    return verified;
+}
+
 const confirmEmailVerification = async (email, token) => {
     let confirmed = false;
-    console.log(token);
-    console.log(email);
     await User.findOne({ email: email }, (err, docs) => {
         if(err) {
             console.error(err);
@@ -87,8 +98,11 @@ const sendVerificationEmail = (email, token) => {
             return console.error(error);
         }
         console.log('Message sent: %s', info.messageId);
-        res.sendStatus(200);
     })
+}
+
+const changeVerificationToken = async (email, token) => {
+    await User.findOneAndUpdate({email: email}, {passwordResetToken: token});
 }
 
 router.get("/", (req, res) => {
@@ -106,19 +120,15 @@ router.post("/auth/login", async (req, res) => {
 })
 
 router.post("/auth/signup", async (req, res) => {
-    console.log(req.body.email);
     const formValidated = await loginValidation(req.body.email, req.body.password);
     if(formValidated === true) {
         const email = req.body.email;
         const exists = await userExists(email);
         if(exists) {
             res.render("login.handlebars", { error: "Signup failed: User already exists, please login" } )
-            console.log("Redirect to user exists page");
         } else {
             addUser(email, req.body.password);
-            // redirect to verification page
-            // pass in please login message to login page
-            res.send("sort login");
+            res.render("checkemail");
         }
         
     } else {
@@ -133,12 +143,38 @@ router.get("/signup", (req,res) => {
 router.get("/signup/confirmed/", async (req, res) => {
     const email = req.query.email;
     const verified = await confirmEmailVerification(email, req.query.token);
+    if(userAlreadyVerified(email)){
+        res.redirect("/");
+        return;
+    }
     if(verified === true) {
-        res.redirect(200, "/");
+        res.redirect("/signup/validated");
     } else {
-        res.send("not verified")
+        res.redirect(`/signup/failure?email=${email}`);
     }
 })
+
+router.get("/signup/validated", (req, res) => {
+    // dont allow route to be accessible outside of signup
+    res.render("confirmation");
+});
+
+router.get("/signup/resend", async (req, res) => {
+    const email = req.query.email;
+    const passwordResetToken = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000;
+    await changeVerificationToken(email, passwordResetToken);
+    sendVerificationEmail(email, passwordResetToken);
+    res.redirect("/signup/checkemail");
+});
+
+router.get("/signup/failure/", (req, res) => {
+    res.render("failure", {email: req.query.email});
+});
+
+router.get("/signup/checkemail", (req, res) => {
+    res.render("checkemail");
+})
+
 
 
 module.exports = router;
