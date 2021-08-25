@@ -43,17 +43,17 @@
  - [x] Check if email is unique
     - [x] Hash password with **bcrypt**
     - [x] Insert into db
- - [ ] Email link for signup confimation
-    - [ ] Email redirects to login page
+ - [x] Email link for signup confimation
+    - [x] Email redirects to login page
 
 - [ ] Setup Oauth Signup
 - [ ] reCaptcha
 
 ## Login (Backend)
- - [ ] Login user with POST /auth/login
-   - [ ] validate the user
-   - [ ] check if username in db
-   	- [ ] compare password with hashed password in db using **bcrypt**
+ - [x] Login user with POST /auth/login
+   - [x] validate the user
+   - [x] check if username in db
+   	- [x] compare password with hashed password in db using **bcrypt**
    	- [ ] Create and sign a JWT using **jsonwebtoken**
    	- [ ] Respond with JWT
 - [ ] If a logged in user visits the signup or login page, redirect them to the dashboard

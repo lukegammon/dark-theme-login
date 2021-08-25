@@ -93,18 +93,16 @@ const changeVerificationToken = async (email, token) => {
 }
 
 const loginUser = async (email, password) => {
-    let allowLogin = false;
-    let encryptedPassword;
-    await User.findOne({email: email}, async (err, docs) => {
-        encryptedPassword = await docs.password;
-        bcrypt.compare(password, encryptedPassword, (err, result) => {
-            if(!result) {
-                console.log("not allowed");
-            } else {
-                console.log("allowed");
-            }
-        })
-    })
+    try {
+        const user = await User.findOne({email: email}).exec();
+        if(bcrypt.compareSync(password, user.password)) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }
     
 
@@ -114,10 +112,11 @@ router.get("/", (req, res) => {
 
 router.post("/auth/login", async (req, res) => {
     const formValidated = await loginValidation(req.body.email, req.body.password);
-    let passwordValidated = await loginUser(req.body.email, req.body.password);
-    console.log(passwordValidated);
+    const passwordValidated = await loginUser(req.body.email, req.body.password);
+    console.log("password validated: ", passwordValidated);
     if(formValidated === true) {
         if(passwordValidated === true){
+            // set JWT token ??
             res.render("dashboard");
         } else {
             res.render("login", { error: "username or password incorrect"});
