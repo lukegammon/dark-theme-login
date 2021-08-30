@@ -1,5 +1,6 @@
-const express = require("express");
 require("dotenv").config();
+const express = require("express");
+const jwt = require("jsonwebtoken");
 const loginValidation = require("./validation");
 const router = express.Router();
 const User = require("./userSchema");
@@ -104,11 +105,29 @@ const loginUser = async (email, password) => {
         console.error(error)
     }
 }
+
+const authenticateToken = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    if(!token) res.status(401).send("access denied");
+    try {
+        const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        req.user = verified;
+        next();
+    } catch (error) {
+        res.status(400).send("invalid token");
+    }
+}
     
 
 router.get("/", (req, res) => {
     res.render("login.handlebars");
 });
+
+router.get("/dashboard", authenticateToken, (req, res) => {
+    res.render("dashboard.handlebars");
+})
+
+
 
 router.post("/auth/login", async (req, res) => {
     const formValidated = await loginValidation(req.body.email, req.body.password);
@@ -117,7 +136,9 @@ router.post("/auth/login", async (req, res) => {
     if(formValidated === true) {
         if(passwordValidated === true){
             // set JWT token ??
-            res.render("dashboard");
+            jwt.sign({email: req.body.email}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"}, (err, token) => {
+                res.header("Authorization", "Bearer " + token).send({token: token});
+            });
         } else {
             res.render("login", { error: "username or password incorrect"});
         }

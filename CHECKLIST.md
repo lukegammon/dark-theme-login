@@ -1,14 +1,12 @@
- Add JWT-based authentication to a Node/Express/Mongo app.
- 
- Includes API Server utilities:
+Includes API Server utilities:
 -   [morgan](https://www.npmjs.com/package/morgan)
     -   HTTP request logger middleware for node.js 
 -   [helmet](https://www.npmjs.com/package/helmet)
     -   Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
 -   [bcrypt](https://www.npmjs.com/package/bcrypt)
 	-   A library to help you hash passwords.
--   [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken))
-	-   **JSON Web Tokens** are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+-   [passport](https://www.passportjs.org/docs/))
+	-   Passport is authentication middleware for Node. It is designed to serve a singular purpose: authenticate requests.
 -   [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 	-   Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 -   [dotenv](https://www.npmjs.com/package/dotenv)
@@ -54,8 +52,7 @@
    - [x] validate the user
    - [x] check if username in db
    	- [x] compare password with hashed password in db using **bcrypt**
-   	- [ ] Create and sign a JWT using **jsonwebtoken**
-   	- [ ] Respond with JWT
+   	- [ ] set passport session
 - [ ] If a logged in user visits the signup or login page, redirect them to the dashboard
 - [ ] On homepage, show go to dashboard button instead of signup/login button
 - [ ] If logged in:
