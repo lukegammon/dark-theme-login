@@ -10,8 +10,6 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const passport =require("./passport");
-const flash = require("express-flash");
-
 
 
 router.get("/", checkNotAuthenticated, (req, res) => {
@@ -52,19 +50,19 @@ router.post("/auth/login", passport.authenticate("local", {
     failureRedirect: "/"
 }));
     
-router.post("/auth/signup", checkNotAuthenticated, async (req, res) => {
+router.post("/signup", checkNotAuthenticated, async (req, res) => {
     const formValidated = await loginValidation(req.body.email, req.body.password);
     if(formValidated === true) {
         const email = req.body.email;
         const exists = await userExists(email);
         if(exists) {
-            res.render("login.handlebars", { error: "Signup failed: User already exists, please login" } )
+            res.render("login", { error: "Signup failed: User already exists, please login" } )
         } else {
             addUser(email, req.body.password);
             res.render("check");
         }
     } else {
-        console.error(formValidated);
+        res.render("signup", { message: formValidated });
     }
 });
 
