@@ -107,6 +107,7 @@ Includes API Server utilities:
 	- [ ] else - send an unauthorized error message
     	- [ ] redirect to login form
 - [ ] Logged in users can only see their page
+- [ ] Logout button removes passport session logOut()
 
 ## Admin Page:
 - [ ] Admin page that lists all users

@@ -14,6 +14,4 @@ const loginValidation = async (email, password) => {
     }
 }
 
-
-
 module.exports = loginValidation;

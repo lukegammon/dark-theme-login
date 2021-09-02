@@ -16,7 +16,7 @@
         <section class="info">
             <h2 class="info__heading">Login to Your Account</h2>
             <p class="info__subtext">View a wide range of stats and information about old, new and upcoming Halo titles.</p>   
-            <small class="error-display">{{ error }}</small>
+            <small class="error-display">{{#if error}}{{ error }}{{/if}}</small>
         </section>
         <section class="login">
             <form class="login__form" name="loginForm" action="/auth/login" method="POST">
